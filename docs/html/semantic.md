@@ -2,7 +2,7 @@
 title: Semantic HTML
 ---
 
-# จัดโครงหน้าเว็บด้วย Semantic HTML
+# จัดโครงหน้าด้วย Semantic HTML
 
 **สถานะ: บทหลัก (Core) · เวลาแนะนำ 15 นาที**
 
@@ -107,6 +107,10 @@ title: Semantic HTML
 
 Browser แสดงสามเหลี่ยมเล็ก ๆ ที่คลิกได้โดยไม่ต้องเขียน JavaScript เลย และเครื่องมืออ่านหน้าจอรู้ว่าเป็นส่วนที่ขยายได้
 
+::: tip ถ้าเหลือเวลา / อ่านเพิ่ม
+`details`/`summary` ไม่บังคับใน checkpoint หลักของบทนี้ — ทำ landmarks และ heading ให้ครบก่อน
+:::
+
 <script setup>
 const semanticExample = {
   html: `<header>
@@ -191,6 +195,10 @@ const detailsExample = {
 - [ ] ใช้ `<article>` กับเมนูแต่ละรายการ ไม่ใช้ครอบทุกอย่างโดยไม่มีเหตุผล
 - [ ] ลำดับ heading เป็น `h1 → h2 → h3`
 - [ ] ลิงก์เมนูยังทำงานหลังย้าย `id`
+
+## ไปต่อ
+
+ไปที่ [Accessibility และ Validation](/html/accessibility-validation) เพื่อตรวจด้วยคีย์บอร์ดและ Validator
 
 ## บันทึกแหล่งข้อมูล
 
