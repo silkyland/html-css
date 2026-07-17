@@ -11,7 +11,7 @@
 | `web-history-cern.webp` | บทประวัติ | Editorial historical scene, CERN office circa 1990, period-correct NeXT workstation, linked-document sketches, no readable text |
 | `community-coffee-shop.webp` | HTML image/alt example | Warm northern Thailand community coffee shop storefront, clear informative subject, no signage text |
 | `html-structure.webp` | HTML structure | Structured document blocks transforming into a rendered coffee-shop browser page |
-| `css-before-after.webp` | CSS introduction/box model | Same coffee-shop page before and after CSS, grayscale versus warm styled hierarchy |
+| `css-before-after.webp` | CSS introduction/box model | Same coffee-shop page before and after CSS, grayscale versus warm styled hierarchy; edited to replace all readable labels with abstract line blocks |
 | `responsive-devices.webp` | Responsive lesson | Same page adapting across desktop, tablet and phone with row/two-column/stacked layouts |
 | `git-workflow.webp` | Git mental model | Working files → staging tray → commit snapshots → cloud repository, left-to-right arrows |
 

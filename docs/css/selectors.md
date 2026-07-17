@@ -4,7 +4,7 @@ title: CSS Selector
 
 # CSS Selector: เลือกส่วนของร้านให้ตรงเป้า
 
-> **CORE · 15 นาที** — ต่อจากบทก่อน โดยแก้ `index.html` และเพิ่ม rule ท้าย `style.css`
+> **CORE · 10 นาที** — ต่อจากบทก่อน โดยแก้ `index.html` และเพิ่ม rule ท้าย `style.css`
 
 ## เป้าหมายการเรียนรู้
 

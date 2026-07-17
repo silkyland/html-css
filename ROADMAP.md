@@ -74,6 +74,7 @@
   - [x] Add `scripts/check-curriculum.mjs`, `docs:check`, and `test`.
   - [x] Generate and integrate six WebP illustrations.
   - [x] Add image manifest and remove learner-facing illustration placeholders.
+  - [x] Enforce raw download links, image alt attributes, and nav/sidebar completeness in the curriculum checker.
   - [x] Refresh `AGENTS.md`, `docs/ARCHITECTURE.md`, and this roadmap.
 - **Notes:** 17 July 2026 — `npm test` passes for 34 learner pages. `npm audit` still reports three transitive dev-tool advisories with no automatic fix.
 

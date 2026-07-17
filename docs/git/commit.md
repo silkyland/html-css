@@ -4,11 +4,11 @@ title: git commit และ git log
 
 # `git commit`: สร้างจุดบันทึกที่อธิบายได้
 
-> **บทเรียนหลัก (Core)** — เป้าหมายสุดท้ายคืออย่างน้อย 3 commit ที่สะท้อนพัฒนาการจริง
+> **บทเรียนหลัก (Core)** — บทนี้สร้าง baseline ที่ตรงกับสถานะจริง ส่วนอีก 2 commit จะเกิดจากงาน Capstone จริง
 
 ## เป้าหมาย
 
-เมื่อจบบทนี้ คุณจะตั้งผู้เขียน สร้าง commit ตรวจประวัติ และทำ milestone เพิ่มจนได้อย่างน้อย 3 จุดบันทึก
+เมื่อจบบทนี้ คุณจะตั้งผู้เขียน สร้าง baseline commit ตรวจประวัติ และวางจุดบันทึกอีก 2 จุดสำหรับงาน Capstone
 
 ## เริ่มจาก
 
@@ -26,7 +26,7 @@ git config --global user.email "you@example.com"
 สร้าง commit แรก:
 
 ```bash
-git commit -m "Create semantic shop page"
+git commit -m "Import workshop website baseline"
 git status
 git log --oneline
 ```
@@ -34,45 +34,39 @@ git log --oneline
 ผลลัพธ์จะมีรหัส commit ที่ต่างกันในแต่ละเครื่อง:
 
 ```text
-[main a1b2c3d] Create semantic shop page
+[main a1b2c3d] Import workshop website baseline
 On branch main
 nothing to commit, working tree clean
-a1b2c3d (HEAD -> main) Create semantic shop page
+a1b2c3d (HEAD -> main) Import workshop website baseline
 ```
 
-### สร้าง milestone ที่ 2 และ 3
+### วาง milestone ที่ 2 และ 3 ไว้ในงานจริง
 
-หาก HTML และ CSS ทำเสร็จก่อนเริ่ม Git แล้ว ให้แก้ชิ้นงานเล็กน้อยแต่มีความหมายในแต่ละรอบ เช่น ปรับสี/spacing แล้วปรับ mobile layout จากนั้นใช้วงจรเดิม:
+อย่าแก้ CSS เพื่อสร้างประวัติย้อนหลัง หลังเรียน GitHub และ push แล้ว ให้ทำ [Capstone](/workshop/project) เป็นสองช่วงและ commit เมื่อแต่ละช่วงผ่าน checkpoint:
 
-```bash
-git diff
-git add style.css
-git diff --cached
-git commit -m "Style shop layout"
+```text
+ช่วงที่ 1 เปลี่ยนชื่อ คำโปรย เมนู และช่องทางติดต่อ
+→ Customize brand content
+
+ช่วงที่ 2 ปรับสี ระยะห่าง ภาพ และ responsive layout
+→ Refine theme and mobile layout
 ```
 
-แก้ media query หรือภาพให้ไม่ล้นจอ แล้วบันทึกอีกครั้ง:
-
-```bash
-git diff
-git add style.css
-git commit -m "Improve mobile layout"
-git log --oneline --decorate -3
-```
+เมื่อทำครบแล้วจึงตรวจประวัติจริงด้วย `git log --oneline --decorate -3` และ push รอบสุดท้าย
 
 ::: info Commit ที่ดีมีขอบเขตเดียว
-ข้อความ `Update files` ไม่บอกเหตุผล ส่วน `Improve mobile layout` บอกผู้ตรวจได้ว่าควรคาดหวังการเปลี่ยนแปลงชนิดใด
+ข้อความ `Update files` ไม่บอกเหตุผล ส่วน `Customize brand content` บอกผู้ตรวจได้ว่าควรคาดหวังการเปลี่ยนแปลงชนิดใด
 :::
 
 ## ผลที่ควรเห็น
 
-`git log --oneline --decorate -3` แสดงอย่างน้อย 3 บรรทัด และบรรทัดบนสุดมี `(HEAD -> main)`
+หลังจบบทนี้ `git log --oneline` แสดง baseline 1 บรรทัด หลังจบ Capstone จะแสดงอย่างน้อย 3 บรรทัด และบรรทัดบนสุดมี `(HEAD -> main)`
 
 ## Checkpoint
 
 - [ ] `git status` แสดง `working tree clean`
-- [ ] `git log --oneline -3` มีอย่างน้อย 3 commit
-- [ ] แต่ละข้อความอธิบายงานหนึ่งเรื่อง ไม่ใช่ `test`, `update` หรือ `final`
+- [ ] baseline ใช้ชื่อ `Import workshop website baseline` ซึ่งตรงกับสิ่งที่บันทึกจริง
+- [ ] จดแผน commit อีก 2 จุดสำหรับงาน Capstone โดยไม่สร้างการเปลี่ยนแปลงปลอม
 
 หากเห็น `nothing to commit` ในเวลาที่คาดว่ามีงาน ให้ดู [Nothing to commit](/workshop/troubleshooting#nothing-to-commit)
 
@@ -80,4 +74,3 @@ git log --oneline --decorate -3
 
 - [Git 2.54: git-commit](https://git-scm.com/docs/git-commit)
 - [Git 2.54: git-log](https://git-scm.com/docs/git-log)
-

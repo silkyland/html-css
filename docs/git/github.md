@@ -16,10 +16,10 @@ title: เชื่อมโปรเจกต์กับ GitHub
 
 ```bash
 git status
-git log --oneline -3
+git log --oneline -1
 ```
 
-ต้องอยู่ branch `main` และมีอย่างน้อย 3 commit ตาม checkpoint ก่อนหน้า
+ต้องอยู่ branch `main` และเห็น baseline commit ชื่อ `Import workshop website baseline` หนึ่งรายการ ส่วนอีกสอง commit จะเกิดจาก Capstone หลัง push ครั้งแรก
 
 ## ลงมือทำ
 
@@ -56,7 +56,7 @@ origin  https://github.com/USERNAME/my-shop-profile.git (push)
 
 ## Checkpoint
 
-- [ ] `git log --oneline -3` ยังแสดงประวัติในเครื่อง
+- [ ] `git log --oneline -1` แสดง baseline commit ในเครื่อง
 - [ ] `git remote -v` แสดง username/repository ของตนเอง ไม่ใช่ `USERNAME`
 - [ ] อธิบายได้ว่าเพิ่ม remote แล้วยังไม่ได้ส่งไฟล์ จนกว่าจะ `push`
 
@@ -66,4 +66,3 @@ origin  https://github.com/USERNAME/my-shop-profile.git (push)
 
 - [Git 2.54: git-remote](https://git-scm.com/docs/git-remote)
 - [GitHub Docs: adding locally hosted code to GitHub](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github)
-

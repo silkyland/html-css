@@ -39,45 +39,64 @@ function reportMissing(sourcePath, kind, target) {
   errors.push(`${relative(projectRoot, sourcePath)}: ${kind} ไม่พบ ${target}`)
 }
 
+function isExternalReference(target) {
+  return /^(?:https?:|mailto:|tel:|data:)/i.test(target) || target.startsWith('#')
+}
+
+function checkLocalReference(sourcePath, target, kind, forceAsset = false) {
+  if (isExternalReference(target)) return
+  const clean = decodeURIComponent(target.split(/[?#]/, 1)[0])
+  const looksLikeAsset = forceAsset || clean.startsWith('/images/') ||
+    /\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(clean)
+
+  if (looksLikeAsset) {
+    const assetPath = clean.startsWith('/')
+      ? join(publicRoot, clean.replace(/^\//, ''))
+      : resolve(sourcePath, '..', clean)
+    if (!existsSync(assetPath)) reportMissing(sourcePath, kind, target)
+    return
+  }
+
+  if (clean.startsWith('/')) {
+    const publicPath = join(publicRoot, clean.replace(/^\//, ''))
+    if (existsSync(publicPath)) return
+    const destination = routeTarget(clean)
+    if (!existsSync(destination)) reportMissing(sourcePath, kind, target)
+    return
+  }
+
+  const filePath = resolve(sourcePath, '..', clean)
+  if ((clean.endsWith('.md') || clean.includes('/')) && !existsSync(filePath)) {
+    reportMissing(sourcePath, kind, target)
+  }
+}
+
 function checkMarkdownLinks(path) {
   const content = withoutCodeFences(readFileSync(path, 'utf8'))
   const markdownLink = /(!?)\[[^\]]*\]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g
-  const htmlAsset = /<(?:img|source)\b[^>]*\b(?:src|srcset)=["']([^"']+)["'][^>]*>/gi
+  const htmlReference = /<(a|img|source)\b[^>]*\b(href|src|srcset)=["']([^"']+)["'][^>]*>/gi
+  const htmlImage = /<img\b(?=[^>]*\bsrc\s*=)[^>]*>/gi
 
   for (const match of content.matchAll(markdownLink)) {
     const isImage = match[1] === '!'
     const target = match[2].replace(/^<|>$/g, '')
-    if (/^(?:https?:|mailto:|tel:|data:)/i.test(target) || target.startsWith('#')) continue
+    checkLocalReference(path, target, isImage ? 'asset' : 'ลิงก์/route', isImage)
+  }
 
-    const clean = decodeURIComponent(target.split(/[?#]/, 1)[0])
-    if (isImage || clean.startsWith('/images/') || /\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(clean)) {
-      const assetPath = clean.startsWith('/')
-        ? join(publicRoot, clean.replace(/^\//, ''))
-        : resolve(path, '..', clean)
-      if (!existsSync(assetPath)) reportMissing(path, 'asset', target)
-      continue
-    }
-
-    if (clean.startsWith('/')) {
-      const destination = routeTarget(clean)
-      if (!existsSync(destination)) reportMissing(path, 'route', target)
-      continue
-    }
-
-    if (clean.endsWith('.md') || clean.includes('/')) {
-      const destination = resolve(path, '..', clean)
-      if (!existsSync(destination)) reportMissing(path, 'ลิงก์ไฟล์', target)
+  for (const match of content.matchAll(htmlReference)) {
+    const [, tag, attribute, value] = match
+    const candidates = attribute.toLowerCase() === 'srcset'
+      ? value.split(',').map((item) => item.trim().split(/\s+/)[0])
+      : [value]
+    for (const candidate of candidates) {
+      checkLocalReference(path, candidate, `${tag.toLowerCase()} ${attribute.toLowerCase()}`, tag.toLowerCase() !== 'a')
     }
   }
 
-  for (const match of content.matchAll(htmlAsset)) {
-    const candidate = match[1].split(/\s+/)[0]
-    if (/^(?:https?:|data:)/i.test(candidate)) continue
-    const clean = candidate.split(/[?#]/, 1)[0]
-    const assetPath = clean.startsWith('/')
-      ? join(publicRoot, clean.replace(/^\//, ''))
-      : resolve(path, '..', clean)
-    if (!existsSync(assetPath)) reportMissing(path, 'asset HTML', candidate)
+  for (const match of content.matchAll(htmlImage)) {
+    if (!/\balt\s*=\s*["'][^"']*["']/i.test(match[0])) {
+      errors.push(`${relative(projectRoot, path)}: <img> ขาด alt (ใช้ alt="" สำหรับภาพตกแต่ง)`)
+    }
   }
 }
 
@@ -103,16 +122,15 @@ function checkConfigRoutes() {
     }
   }
 
-  const requiredRoutes = [
-    '/intro/setup',
-    '/intro/web-history',
-    '/html/accessibility-validation',
-    '/workshop/troubleshooting',
-    '/workshop/instructor-checklist',
-  ]
-  const configured = new Set([...navLinks, ...sidebarLinks])
-  for (const route of requiredRoutes) {
-    if (!configured.has(route)) errors.push(`docs/.vitepress/config.ts: ยังไม่ได้ประกาศ route ที่จำเป็น ${route}`)
+  const curriculumDirectories = new Set(['intro', 'html', 'css', 'git', 'workshop'])
+  const learnerRoutes = learnerMarkdownFiles()
+    .map((path) => relative(docsRoot, path).replace(/\.md$/, '').split('\\').join('/'))
+    .filter((route) => curriculumDirectories.has(route.split('/')[0]))
+    .map((route) => `/${route}`)
+
+  for (const route of learnerRoutes) {
+    if (!navLinks.includes(route)) errors.push(`docs/.vitepress/config.ts: learner page ขาดจาก nav: ${route}`)
+    if (!sidebarLinks.includes(route)) errors.push(`docs/.vitepress/config.ts: learner page ขาดจาก sidebar: ${route}`)
   }
 }
 

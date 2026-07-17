@@ -30,7 +30,8 @@ title: เช็กลิสต์สำหรับผู้สอน
 | ก่อนพักเช้า | `index.html` มี document skeleton, `lang`, title และเนื้อหาหลัก | แจก diff เฉพาะ block ที่ขาด ไม่แจกไฟล์เฉลยทั้งชุด |
 | ก่อนพักกลางวัน | semantic regions, alt decision, validator และ keyboard pass | ย้าย table/form ไป enrichment |
 | ก่อนเริ่ม Git | หน้า 320px ไม่ล้น, focus ชัด, `pwd` อยู่ `my-shop-profile` | ใช้ minimal CSS checkpoint แล้วตัด Grid |
-| หลัง commit | `git log --oneline -3` มี milestone ที่สื่อความหมาย | ให้แก้งานเล็ก 2 รอบและ commit ตามงานจริง |
+| หลังช่วง Git/GitHub | `git log --oneline -1` มี baseline และ push แรกสำเร็จหรือมีหลักฐาน local | เก็บ baseline ในเครื่องแล้วใช้ network fallback |
+| หลัง Capstone | `git log --oneline -3` มี baseline + milestone เนื้อหา + milestone responsive | กลับไปทำ checkpoint ที่ยังขาด ห้ามแก้ไฟล์เพื่อสร้างประวัติปลอม |
 | ก่อนส่ง | rubric 4 หมวดผ่านและ `git status` clean | ส่ง local evidence ก่อนหาก auth/network ล่ม |
 
 ## คำถามประวัติพร้อมคำตอบอ้างอิง
@@ -65,4 +66,3 @@ title: เช็กลิสต์สำหรับผู้สอน
 - [ ] รับหลักฐานตาม rubric ไม่ให้คะแนนจากความสวยเพียงอย่างเดียว
 - [ ] เตือนให้ลบ token ที่อาจเผลอเผยแพร่และ rotate ทันทีหากพบ
 - [ ] ชี้เส้นทางเรียนต่อจาก [สรุป](/workshop/summary) และ [แหล่งเรียนรู้](/workshop/resources)
-

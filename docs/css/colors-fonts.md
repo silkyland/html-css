@@ -54,6 +54,8 @@ h1 {
   background-color: var(--color-brand);
 }
 
+.site-header .brand,
+.site-header p,
 .site-header a {
   color: #ffffff;
 }
@@ -92,8 +94,8 @@ textarea:focus-visible {
 
 <script setup>
 const example = {
-  html: `<header class="site-header"><a href="#menu">ข้ามไปเมนู</a></header><main><h1>กาแฟบ้านดอย</h1><p>กาแฟจากเกษตรกรในชุมชน คั่วสดทุกสัปดาห์</p><a href="#contact">ติดต่อร้าน</a></main>`,
-  css: `:root{--paper:#fffaf2;--ink:#2f241f;--brand:#5c3317;--focus:#ffbf47}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,sans-serif;line-height:1.6}.site-header{padding:1rem;background:var(--brand)}.site-header a{color:#fff}main{padding:1rem}h1{color:var(--brand);font-size:clamp(2rem,5vw,3.5rem);line-height:1.2}a:focus-visible{outline:3px solid var(--focus);outline-offset:3px}`
+  html: `<header class="site-header"><h1 class="brand">กาแฟบ้านดอย</h1><p>กาแฟจากเกษตรกรในชุมชน คั่วสดทุกสัปดาห์</p><a href="#menu">ข้ามไปเมนู</a></header><main id="menu"><h2>เมนูแนะนำ</h2><p>เลือกเมล็ดกาแฟจากชุมชน</p><a href="#contact">ติดต่อร้าน</a></main>`,
+  css: `:root{--paper:#fffaf2;--ink:#2f241f;--brand:#5c3317;--focus:#ffbf47}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,sans-serif;line-height:1.6}.site-header{padding:1rem;background:var(--brand)}h1,h2{color:var(--brand);line-height:1.2}.site-header .brand,.site-header p,.site-header a{color:#fff}.brand{font-size:clamp(2rem,5vw,3.5rem);margin:0}main{padding:1rem}a:focus-visible{outline:3px solid var(--focus);outline-offset:3px}`
 }
 </script>
 
@@ -116,7 +118,7 @@ const example = {
 - [ ] กด `Tab` ตั้งแต่ address bar จนเข้าหน้าเว็บ เห็นกรอบโฟกัสทุกลิงก์
 - [ ] contrast checker รายงานข้อความทั่วไปอย่างน้อย 4.5:1
 - [ ] ซูม 200% แล้วหัวเรื่องไม่ชนหรือล้นการ์ด
-- [ ] เปลี่ยน `--color-brand` จุดเดียว สีหัวเรื่องและ header เปลี่ยนตาม
+- [ ] เปลี่ยน `--color-brand` จุดเดียว สีพื้น header และหัวเรื่องในเนื้อหาหลักเปลี่ยนตาม โดยชื่อร้านบน header ยังเป็นสีขาว
 
 ## แหล่งอ้างอิงมาตรฐาน
 

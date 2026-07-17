@@ -77,8 +77,8 @@ quality: scripts/check-curriculum.mjs → VitePress production build
 - **Rejected:** replacing the delivery framework would not address the learner-path defects.
 
 ### 2. One cumulative learner project (17 July 2026)
-- **Decision:** every core lesson modifies the same “กาแฟบ้านดอย” project.
-- **Why:** removes snippet assembly and keeps Git attached to the actual work.
+- **Decision:** every teaching lesson modifies the same “กาแฟบ้านดอย” project; the explicit Capstone then customizes that same project and repository into the learner's brand.
+- **Why:** removes snippet assembly, keeps Git attached to the actual work, and permits authentic capstone ownership without a second project.
 - **Rejected:** unrelated business examples create unnecessary context switching.
 
 ### 3. Core versus enrichment (17 July 2026)

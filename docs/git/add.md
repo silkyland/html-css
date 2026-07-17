@@ -45,7 +45,7 @@ A  index.html
 A  style.css
 ```
 
-ก่อน commit ให้ดูเนื้อหาที่กำลังจะบันทึกได้ด้วย:
+ก่อน commit ให้ดูเนื้อหาที่กำลังจะบันทึกเป็น **baseline ของงานจากช่วง HTML/CSS** ได้ด้วย:
 
 ```bash
 git diff --cached
@@ -77,7 +77,7 @@ git diff
 
 ## ผลที่ควรเห็น
 
-`git status --short` แสดง `A` หน้าไฟล์ทั้งหมด และ `git diff --cached --stat` สรุปสิ่งที่จะเข้า commit แรก
+`git status --short` แสดง `A` หน้าไฟล์ทั้งหมด และ `git diff --cached --stat` สรุปสิ่งที่จะเข้า commit แรกชื่อ `Import workshop website baseline` ซึ่งบอกตรง ๆ ว่าเป็นการนำงานที่ทำเสร็จก่อนเริ่ม Git เข้าสู่ประวัติ
 
 ## Checkpoint
 

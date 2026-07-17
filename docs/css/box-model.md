@@ -21,7 +21,7 @@ title: Box Model
 
 จากด้านในออกด้านนอก ได้แก่ **content → padding → border → margin** พื้นหลังของ element วาดใต้ content และ padding ส่วน margin เป็นช่องว่างนอกขอบ ([W3C CSS Box Model Level 3](https://www.w3.org/TR/css-box-3/))
 
-<img src="/images/workshop/css-before-after.webp" alt="เปรียบเทียบหน้าเว็บก่อนตกแต่งกับหลังใช้ CSS พร้อมแผนภาพ Box Model" loading="lazy">
+<img src="/images/workshop/css-before-after.webp" alt="เปรียบเทียบหน้าเว็บร้านกาแฟก่อนตกแต่งกับหลังใช้สี ระยะห่าง และการจัดวางด้วย CSS" loading="lazy">
 
 > ภาพนี้ใช้เปรียบเทียบ “ก่อน–หลังใส่ CSS” ระหว่างอธิบายกล่อง ให้เปิด DevTools → Elements → Computed เพื่อดูแผนภาพ Box Model ที่คำนวณจากการ์ดจริงด้วย
 

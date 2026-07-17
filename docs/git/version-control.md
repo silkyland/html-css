@@ -43,16 +43,16 @@ title: Version Control คืออะไร
 โปรเจกต์ตัวอย่างของเราจะมีประวัติอย่างน้อยนี้:
 
 ```text
-1. Create semantic shop page
-2. Style shop layout
-3. Improve mobile layout
+1. Import workshop website baseline
+2. Customize brand content
+3. Refine theme and mobile layout
 ```
 
 แต่ละ commit ควรตอบได้ว่า “ทำอะไรสำเร็จหนึ่งเรื่อง” ไม่ใช่บันทึกตามจำนวนไฟล์
 
 ## ผลที่ควรเห็น
 
-ตอนนี้ไฟล์ยังไม่เปลี่ยนและยังไม่มี repository เราเพียงเห็นภาพว่าจะนำชิ้นงานเดิมเข้าสู่ Git อย่างไร โดยไม่สร้างโฟลเดอร์โปรเจกต์ซ้ำ
+ตอนนี้ไฟล์ยังไม่เปลี่ยนและยังไม่มี repository เราเพียงเห็นภาพว่าจะนำชิ้นงานเดิมเข้าสู่ Git เป็น baseline ที่ตั้งชื่อตรงตามความจริง แล้วสร้างอีกสอง commit จากงาน Capstone จริงโดยไม่สร้างโฟลเดอร์ซ้ำ
 
 ## Checkpoint
 

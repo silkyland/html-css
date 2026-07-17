@@ -6,7 +6,7 @@ This repository is a Thai-language, one-day beginner curriculum for HTML, CSS, G
 
 - Treat `docs/` as the only canonical curriculum. `archive/workshop-html-css-git-v1.md` is frozen legacy and is not rendered (`archive/README.md:1-8`).
 - Keep all learner-facing prose in Thai. Explain an English technical term on first use and keep executable code/commands in their native syntax (`docs/CONTRIBUTING.md:1-31`).
-- Preserve the cumulative learner path: `my-shop-profile/index.html` → `style.css` → Git in that same directory. Do not switch brands or invent a second project (`docs/CONTRIBUTING.md:17-22`).
+- Preserve the cumulative learner path: `my-shop-profile/index.html` → `style.css` → Git in that same directory. Keep “กาแฟบ้านดอย” in teaching lessons; learner brand customization is allowed only in the explicit Capstone, without creating a second project (`docs/CONTRIBUTING.md:17-23`).
 - Every core lesson must retain headings for เป้าหมาย, สถานะเริ่มต้น/เริ่มจาก, ลงมือ, ผลที่ควรเห็น, and Checkpoint; the checker enforces them (`scripts/check-curriculum.mjs:119-161`).
 - Keep Tables, Forms, CSS Grid, and `git clone` labeled as enrichment; they are outside the 09:00–16:00 core path (`docs/intro/agenda.md:5-34`).
 - Code shown to learners must copy-run with the same result as its preview. Put public assets under `docs/public/` and verify every route/asset (`docs/CONTRIBUTING.md:17-31`, `scripts/check-curriculum.mjs:42-81`).
