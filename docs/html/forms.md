@@ -42,6 +42,31 @@ title: ฟอร์มติดต่อ
 </section>
 ```
 
+<script setup>
+const formsExample = {
+  html: `<section id="contact-form">
+  <h2>สอบถามเมล็ดกาแฟ</h2>
+  <form action="" method="get">
+    <p>
+      <label for="customer-name">ชื่อผู้ติดต่อ</label>
+      <input id="customer-name" name="name" type="text" autocomplete="name" required>
+    </p>
+    <p>
+      <label for="customer-email">อีเมล</label>
+      <input id="customer-email" name="email" type="email" autocomplete="email" required>
+    </p>
+    <p>
+      <label for="question">คำถาม</label>
+      <textarea id="question" name="question" rows="5" required></textarea>
+    </p>
+    <button type="submit">ตรวจข้อมูล</button>
+  </form>
+</section>`
+}
+</script>
+
+<LivePreview v-bind="formsExample" height="360px" title="ฟอร์มติดต่อ — ลองกดปุ่มโดยไม่กรอกอะไรดูข้อความ required" />
+
 ## สิ่งที่แต่ละส่วนทำ
 
 | ส่วน | หน้าที่ |
@@ -70,6 +95,14 @@ title: ฟอร์มติดต่อ
 - กด `Tab` ผ่านช่องกรอกตามลำดับบนหน้า
 - Browser ป้องกันการ submit เมื่อช่อง required ว่างหรือ email ผิดรูปแบบ
 - เมื่อข้อมูลผ่าน หน้า reload เพราะยังไม่มี backend จัดการ
+
+## จุดที่พลาดบ่อย
+
+- `for` ของ `<label>` สะกดไม่ตรงกับ `id` ของ input เช่น `for="customer_email"` แต่ input มี `id="customer-email"`
+- ใช้ `id` ซ้ำกันสองช่อง ทำให้ label เชื่อมกับช่องแรกที่เจอเท่านั้น
+- ลืม `name` ให้ input ทำให้ค่านั้นไม่ถูกส่งไปกับฟอร์มเลย
+- ใช้ `<div>` ครอบ label กับ input แทน `<label>` ทั้งที่ยังต้องมี `for`/`id` เชื่อมกันอยู่ดี
+- ใช้ `method="post"` แล้วคาดว่าข้อมูลถูกบันทึกจริง ทั้งที่ยังไม่มี backend รับค่า
 
 ## Checkpoint
 

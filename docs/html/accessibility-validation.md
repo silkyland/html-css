@@ -18,6 +18,31 @@ title: ตรวจ Accessibility และ HTML
 
 ผู้ใช้บางคนใช้คีย์บอร์ด บางคนขยายจอ บางคนใช้ screen reader และทุกคนอาจเจอสถานการณ์ที่มองจอหรือใช้เมาส์ไม่สะดวก HTML ที่มีความหมายช่วยให้เครื่องมือเหล่านี้เข้าใจหน้าได้ตั้งแต่ต้น
 
+<script setup>
+const currentStateExample = {
+  html: `<header>
+  <h1>กาแฟบ้านดอย</h1>
+  <nav aria-label="เมนูหลัก">
+    <a href="#menu">เมนูแนะนำ</a>
+    <a href="#contact">ติดต่อเรา</a>
+  </nav>
+</header>
+<main>
+  <section id="menu">
+    <h2>เมนูแนะนำ</h2>
+    <p>อเมริกาโน่น้ำผึ้ง 65 บาท</p>
+  </section>
+</main>
+<footer id="contact">
+  <p><a href="tel:+66812345678">โทร 081-234-5678</a></p>
+</footer>`
+}
+</script>
+
+<LivePreview v-bind="currentStateExample" height="280px" title="index.html สะสมจากบทก่อนหน้า — ลองกด Tab ในผลลัพธ์ด้านล่าง" />
+
+ก่อนตรวจ ให้ลองกด `Tab` ในผลลัพธ์ด้านบนดูว่า focus ไล่ตามลำดับลิงก์ในหน้าหรือไม่ นี่คือการตรวจแบบเดียวกับที่จะทำกับ `index.html` จริงของคุณในขั้นต่อไป
+
 ## ลงมือ
 
 ### 1. Keyboard pass
@@ -59,6 +84,13 @@ Validator ช่วยหาปัญหา syntax เช่น tag ปิดผ
 - ใช้ `Tab` เข้าถึงลิงก์ทุกตัวและกดใช้งานได้
 - HTML Validator ไม่รายงาน error จาก markup ของบทเรียน
 - checklist ข้างต้นผ่านทุกข้อที่มีอยู่ในหน้า
+
+## จุดที่พลาดบ่อย
+
+- แก้ error ใน Validator จากล่างขึ้นบน ทำให้ error ต้นทางที่ทำให้เกิด error อื่นตามมาถูกข้ามไป ให้แก้จากบนลงล่างเสมอ
+- ทดสอบ keyboard เฉพาะลิงก์ แล้วลืมตรวจปุ่มและช่องกรอกในฟอร์ม (ถ้ามี)
+- เข้าใจว่า Validator ผ่านแล้วแปลว่า accessibility ผ่านด้วย ทั้งที่ Validator ตรวจ syntax เท่านั้น ไม่ตรวจว่า `alt` สื่อความหมายถูกหรือลำดับ heading อ่านเข้าใจง่าย
+- แก้ error ด้วยการลบ element ออกทั้งหมดแทนการแก้ attribute หรือลำดับที่ผิด
 
 ## Checkpoint
 

@@ -92,9 +92,53 @@ title: Semantic HTML
 </body>
 ```
 
+<script setup>
+const semanticExample = {
+  html: `<header>
+  <h1>กาแฟบ้านดอย</h1>
+  <p>กาแฟจากเกษตรกรในชุมชน คั่วสดทุกสัปดาห์</p>
+  <nav aria-label="เมนูหลัก">
+    <a href="#menu">เมนูแนะนำ</a>
+    <a href="#hours">เวลาเปิดร้าน</a>
+    <a href="#contact">ติดต่อเรา</a>
+  </nav>
+</header>
+<main>
+  <section id="menu">
+    <h2>เมนูแนะนำ</h2>
+    <article>
+      <h3>อเมริกาโน่น้ำผึ้ง</h3>
+      <p>65 บาท</p>
+    </article>
+    <article>
+      <h3>ลาเต้นมสด</h3>
+      <p>70 บาท</p>
+    </article>
+  </section>
+  <section id="hours">
+    <h2>เวลาเปิดร้าน</h2>
+    <p>เปิดทุกวัน <strong>08:00–17:00 น.</strong></p>
+  </section>
+</main>
+<footer id="contact">
+  <h2>ติดต่อเรา</h2>
+  <p><a href="tel:+66812345678">โทร 081-234-5678</a></p>
+</footer>`
+}
+</script>
+
+<LivePreview v-bind="semanticExample" height="480px" title="index.html — โครง semantic ทั้งหน้า (ตัดเนื้อหาบางส่วนเพื่อความสั้น)" />
+
 ## ผลที่ควรเห็น
 
 หน้าตายังเกือบเหมือนเดิม เพราะ semantic element ไม่ได้มีไว้สร้างดีไซน์โดยตรง แต่ใน Developer Tools จะเห็นโครง `header → main → sections → footer` ชัดเจน
+
+## จุดที่พลาดบ่อย
+
+- ใส่ `<main>` มากกว่าหนึ่งตัว หรือซ้อน `<main>` ไว้ใน `<header>`/`<footer>`
+- ครอบทุกอย่างด้วย `<section>` ทั้งที่บางส่วนเป็นเพียงกล่องจัด layout ซึ่งควรใช้ `<div>`
+- ใช้ `<article>` กับกลุ่มเนื้อหาที่แยกออกมาอ่านเดี่ยว ๆ แล้วไม่เข้าใจความหมาย (เช่นครอบทั้ง `<nav>`)
+- ย้าย `id` ไปไว้ผิด element ตอนจัดโครงใหม่ ทำให้ลิงก์จากบทก่อนหน้าเลื่อนไปผิดตำแหน่งหรือไม่ทำงาน
 
 ## Checkpoint
 
