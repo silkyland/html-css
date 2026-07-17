@@ -1,3 +1,7 @@
+---
+title: git push
+---
+
 # `git push`: ส่ง Commit ขึ้น GitHub
 
 ส่ง Branch `main` ขึ้น Remote ชื่อ `origin` ครั้งแรก:

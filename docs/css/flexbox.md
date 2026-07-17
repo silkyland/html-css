@@ -1,3 +1,7 @@
+---
+title: Flexbox
+---
+
 # Flexbox: จัดวางสินค้าให้อยู่ในแถว
 
 Flexbox เหมาะกับการจัด Element ในหนึ่งแนว เช่น แถวสินค้า เมนู หรือปุ่ม
@@ -30,10 +34,16 @@ const example = {
 
 <LivePreview v-bind="example" height="180px" />
 
-- `gap` กำหนดช่องว่างระหว่างกล่อง
-- `justify-content` จัดตำแหน่งตามแนวหลัก
-- `align-items` จัดตำแหน่งตามแนวขวาง
-- `flex-wrap` อนุญาตให้กล่องขึ้นบรรทัดใหม่
+## คุณสมบัติ Flexbox ที่ใช้บ่อย
+
+| คุณสมบัติ | หน้าที่ | ค่าที่ใช้บ่อย |
+|----------|---------|--------------|
+| `display: flex` | เปิดใช้งาน Flexbox | — |
+| `gap` | ช่องว่างระหว่างกล่อง | `16px` |
+| `justify-content` | จัดตำแหน่งตามแนวหลัก | `center`, `space-between` |
+| `align-items` | จัดตำแหน่งตามแนวขวาง | `stretch`, `center` |
+| `flex-wrap` | อนุญาตให้ขึ้นบรรทัดใหม่ | `wrap`, `nowrap` |
+| `flex` | สัดส่วนการขยาย | `1 1 220px` |
 
 ::: details ภาพประกอบที่แนะนำ
 Diagram แสดง Main Axis และ Cross Axis ของ Flexbox

@@ -1,3 +1,7 @@
+---
+title: git init
+---
+
 # `git init`: เริ่มต้น Repository
 
 เปิด Terminal แล้วเข้าไปยังโฟลเดอร์โปรเจกต์

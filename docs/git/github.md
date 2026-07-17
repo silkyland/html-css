@@ -1,3 +1,7 @@
+---
+title: สร้าง Repository บน GitHub
+---
+
 # สร้าง Repository บน GitHub
 
 1. เข้าสู่ระบบที่ [github.com](https://github.com)

@@ -1,3 +1,7 @@
+---
+title: git clone
+---
+
 # `git clone`: ดาวน์โหลด Repository มาทำงาน
 
 ใช้เมื่อ Repository มีอยู่บน GitHub แล้ว และเราต้องการสำเนามาไว้ในเครื่อง

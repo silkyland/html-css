@@ -1,3 +1,7 @@
+---
+title: แหล่งเรียนรู้
+---
+
 # แหล่งเรียนรู้ต่อยอด
 
 ## HTML และ CSS
@@ -6,6 +10,7 @@
 - [web.dev](https://web.dev/learn/) — บทเรียนเว็บไซต์จาก Google
 - [W3Schools](https://www.w3schools.com/) — ตัวอย่างสำหรับผู้เริ่มต้น
 - [Flexbox Froggy](https://flexboxfroggy.com/) — เกมฝึก Flexbox
+- [Grid Garden](https://cssgridgarden.com/) — เกมฝึก CSS Grid
 
 ## Git และ GitHub
 

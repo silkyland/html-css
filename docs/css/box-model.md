@@ -1,3 +1,7 @@
+---
+title: Box Model
+---
+
 # Box Model: ทุก Element คือกล่อง
 
 ทุก Element ประกอบด้วย 4 ชั้น
