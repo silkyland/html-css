@@ -2,50 +2,95 @@
 title: ลิงก์และรูปภาพ
 ---
 
-# ลิงก์และรูปภาพ
+# สร้างทางนำและใช้รูปภาพอย่างมีความหมาย
 
-ใช้ลิงก์เชื่อมไปยังหน้าอื่น และใช้รูปภาพช่วยสื่อสารสินค้าให้ชัดเจนขึ้น
+**สถานะ: บทหลัก (Core) · เวลาแนะนำ 15 นาที**
 
-<script setup>
-const placeholder = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMjAiIGhlaWdodD0iMTgwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZDRhMzczIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIj5TYW1wbGUgSW1hZ2U8L3RleHQ+PC9zdmc+'
+## เป้าหมาย
 
-const example = {
-  code: `<h1>กระเป๋าผ้ารักษ์โลก</h1>
+เพิ่มเมนูที่ลิงก์ไปยังส่วนจริงในหน้า ใส่รูปจากโฟลเดอร์ local และตัดสินใจเขียน `alt` ตามหน้าที่ของภาพ
 
+## สถานะเริ่มต้น
+
+- `my-shop-profile/index.html` มีหัวข้อ “เมนูแนะนำ” และ “เวลาเปิดร้าน”
+- <a href="/images/workshop/community-coffee-shop.webp" download>ดาวน์โหลดภาพ `community-coffee-shop.webp`</a> ที่ผู้สอนเตรียมไว้ แล้ววางใน `my-shop-profile/images/`
+
+```text
+my-shop-profile/
+├── index.html
+└── images/
+    └── community-coffee-shop.webp
+```
+
+## ลงมือ
+
+### 1. สร้างปลายทางก่อนสร้างลิงก์
+
+เพิ่ม `id` ที่หัวข้อเดิม:
+
+```html
+<h2 id="menu">เมนูแนะนำ</h2>
+<!-- รายการเมนูเดิม -->
+
+<h2 id="hours">เวลาเปิดร้าน</h2>
+<!-- เวลาเปิดร้านเดิม -->
+```
+
+จากนั้นเพิ่มเมนูใต้ `<h1>`:
+
+```html
+<nav aria-label="เมนูหลัก">
+  <a href="#menu">เมนูแนะนำ</a>
+  <a href="#hours">เวลาเปิดร้าน</a>
+  <a href="#contact">ติดต่อเรา</a>
+</nav>
+```
+
+และเพิ่มปลายทางท้ายเนื้อหา:
+
+```html
+<h2 id="contact">ติดต่อเรา</h2>
+<p><a href="tel:+66812345678">โทร 081-234-5678</a></p>
+```
+
+`href="#menu"` หมายถึงให้ Browser เลื่อนไปยัง element ที่มี `id="menu"` ในหน้าเดียวกัน
+
+### 2. ใส่ภาพจาก path ที่มีอยู่จริง
+
+วางภาพต่อจากเมนูนำทาง:
+
+```html
 <img
-  src="images/eco-bag.jpg"
-  alt="กระเป๋าผ้าสีครีมพิมพ์ลายใบไม้"
-  width="320"
+  src="images/community-coffee-shop.webp"
+  alt="หน้าร้านกาแฟบ้านดอย มีเคาน์เตอร์ไม้และเมล็ดกาแฟจากชุมชน"
+  width="960"
+  height="640"
 >
+```
 
-<p>
-  <a href="contact.html">สอบถามสินค้า</a>
-</p>`,
-  html: `<h1>กระเป๋าผ้ารักษ์โลก</h1>
+Path เริ่มจากตำแหน่งของ `index.html`: เข้าโฟลเดอร์ `images` แล้วเลือกไฟล์ หากตัวพิมพ์ใหญ่เล็กหรือชื่อไม่ตรง ภาพจะไม่แสดง
 
-<img src="${placeholder}" alt="กระเป๋าผ้าสีครีมพิมพ์ลายใบไม้" width="320">
+## ตัดสินใจเขียน `alt`
 
-<p>
-  <a href="contact.html">สอบถามสินค้า</a>
-</p>`
-}
-</script>
+ถามว่า “ถ้าภาพหายไป ผู้ใช้เสียข้อมูลสำคัญหรือไม่?”
 
-<LivePreview v-bind="example" height="260px" />
+- **ภาพให้ข้อมูล:** เขียน `alt` สั้น กระชับ บอกข้อมูลที่จำเป็นในบริบท
+- **ภาพตกแต่งล้วน:** ใช้ `alt=""` เพื่อไม่ให้ screen reader อ่านชื่อไฟล์ที่ไม่ช่วยอะไร
+- **อย่าเริ่มด้วย** “รูปภาพของ…” เพราะเทคโนโลยีช่วยเหลือรู้ว่าเป็นภาพอยู่แล้ว
 
-## Tag ที่ใช้
+## ผลที่ควรเห็น
 
-| Tag / Attribute | หน้าที่ | ตัวอย่าง |
-|-----------------|---------|---------|
-| `<a href="...">` | สร้างลิงก์ไปยังหน้าอื่น | `<a href="contact.html">ติดต่อ</a>` |
-| `<img src="...">` | แสดงรูปภาพ | `<img src="bag.jpg">` |
-| `alt` | อธิบายรูปเมื่อโหลดไม่ได้ หรือสำหรับผู้ใช้สายตาพิการ | `alt="กระเป๋าผ้าสีครีม"` |
-| `width` | กำหนดความกว้างรูป | `width="320"` |
+- คลิกเมนูแล้ว Browser เลื่อนไปยังหัวข้อที่ตรงกัน
+- ภาพหน้าร้านแสดงโดยไม่เกิดไอคอนภาพแตก
+- คลิกลิงก์โทรศัพท์แล้วอุปกรณ์ที่รองรับเสนอเปิดแอปโทร
 
-::: tip ตั้งชื่อไฟล์รูปให้อ่านง่าย
-ใช้ชื่อไฟล์ที่อ่านเข้าใจง่าย เช่น `eco-bag.jpg` แทน `IMG_1234.jpg` — ช่วยให้ Search Engine เข้าใจเนื้อหา
-:::
+## Checkpoint
 
-::: details ภาพประกอบที่แนะนำ
-Screenshot หน้าแสดงสินค้าที่มีภาพ ชื่อสินค้า และปุ่มติดต่อ
-:::
+- [ ] `href="#..."` ทุกตัวมี `id` ปลายทางที่สะกดตรงกัน
+- [ ] เปิด path ภาพได้จริง และชื่อไฟล์ตรงทุกตัวอักษร
+- [ ] ภาพให้ข้อมูลมี `alt` ที่สื่อสารหน้าที่ของภาพ
+- [ ] กด `Tab` แล้วเข้าถึงลิงก์ทุกตัวได้
+
+## บันทึกแหล่งข้อมูล
+
+หลักการเลือก text alternative สำหรับภาพให้ข้อมูลและภาพตกแต่งอ้างจาก [W3C WAI — Images Tutorial](https://www.w3.org/WAI/tutorials/images/)

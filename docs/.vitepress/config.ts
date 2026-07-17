@@ -4,7 +4,7 @@ export default defineConfig({
   lang: 'th-TH',
   title: 'เวิร์กชอป HTML + CSS + Git',
   description: 'คู่มืออบรมสร้างเว็บไซต์ด้วย HTML, CSS และ Git เบื้องต้น',
-  srcExclude: ['PLAN.md', 'ARCHITECTURE.md'],
+  srcExclude: ['PLAN.md', 'ARCHITECTURE.md', 'CONTRIBUTING.md', 'ILLUSTRATION-BACKLOG.md'],
   themeConfig: {
     nav: [
       { text: 'หน้าแรก', link: '/' },
@@ -12,8 +12,10 @@ export default defineConfig({
         text: 'แนะนำ',
         items: [
           { text: 'ภาพรวม', link: '/intro/overview' },
+          { text: 'เตรียมเครื่องมือ', link: '/intro/setup' },
           { text: 'วิทยากร', link: '/intro/instructor' },
           { text: 'กำหนดการ', link: '/intro/agenda' },
+          { text: 'ประวัติ Web, HTML และ CSS', link: '/intro/web-history' },
           { text: 'เว็บทำงานอย่างไร', link: '/intro/how-web-works' },
         ],
       },
@@ -25,6 +27,7 @@ export default defineConfig({
           { text: 'ลิงก์และรูปภาพ', link: '/html/links-images' },
           { text: 'รายการและตาราง', link: '/html/lists-tables' },
           { text: 'Semantic HTML', link: '/html/semantic' },
+          { text: 'Accessibility และ Validation', link: '/html/accessibility-validation' },
           { text: 'ฟอร์ม', link: '/html/forms' },
         ],
       },
@@ -56,6 +59,8 @@ export default defineConfig({
         text: 'เวิร์กชอป',
         items: [
           { text: 'โจทย์', link: '/workshop/project' },
+          { text: 'แก้ปัญหา', link: '/workshop/troubleshooting' },
+          { text: 'เช็กลิสต์ผู้สอน', link: '/workshop/instructor-checklist' },
           { text: 'สรุป', link: '/workshop/summary' },
           { text: 'แหล่งเรียนรู้', link: '/workshop/resources' },
           { text: 'ถาม–ตอบ', link: '/workshop/qna' },
@@ -68,8 +73,10 @@ export default defineConfig({
           text: 'แนะนำ',
           items: [
             { text: 'ภาพรวม', link: '/intro/overview' },
+            { text: 'เตรียมเครื่องมือ', link: '/intro/setup' },
             { text: 'วิทยากร', link: '/intro/instructor' },
             { text: 'กำหนดการ', link: '/intro/agenda' },
+            { text: 'ประวัติ Web, HTML และ CSS', link: '/intro/web-history' },
             { text: 'เว็บทำงานอย่างไร', link: '/intro/how-web-works' },
           ],
         },
@@ -83,6 +90,7 @@ export default defineConfig({
             { text: 'ลิงก์และรูปภาพ', link: '/html/links-images' },
             { text: 'รายการและตาราง', link: '/html/lists-tables' },
             { text: 'Semantic HTML', link: '/html/semantic' },
+            { text: 'Accessibility และ Validation', link: '/html/accessibility-validation' },
             { text: 'ฟอร์ม', link: '/html/forms' },
           ],
         },
@@ -120,6 +128,8 @@ export default defineConfig({
           text: 'เวิร์กชอป',
           items: [
             { text: 'โจทย์', link: '/workshop/project' },
+            { text: 'แก้ปัญหา', link: '/workshop/troubleshooting' },
+            { text: 'เช็กลิสต์ผู้สอน', link: '/workshop/instructor-checklist' },
             { text: 'สรุป', link: '/workshop/summary' },
             { text: 'แหล่งเรียนรู้', link: '/workshop/resources' },
             { text: 'ถาม–ตอบ', link: '/workshop/qna' },

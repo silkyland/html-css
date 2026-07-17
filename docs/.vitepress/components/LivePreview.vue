@@ -70,7 +70,9 @@ ${h}
       v-show="showPreview"
       class="lp-frame"
       :srcdoc="srcdoc"
+      :title="`${title || 'ตัวอย่างโค้ด'} — ผลลัพธ์`"
       :style="{ height: frameHeight }"
+      sandbox="allow-forms"
       frameborder="0"
       width="100%"
     ></iframe>

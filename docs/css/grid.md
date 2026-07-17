@@ -1,153 +1,105 @@
 ---
-title: CSS Grid
+title: CSS Grid (บทเสริม)
 ---
 
-# CSS Grid: จัดวางหน้าเว็บแบบสองมิติ
+# CSS Grid: บทเสริมสำหรับ Layout สองมิติ
 
-CSS Grid ช่วยให้เราจัดวาง Element ได้ทั้งแถวและคอลัมน์ในเวลาเดียวกัน เหมาะกับ Layout หน้าเว็บ เช่น ส่วนหัว เนื้อหาหลัก Sidebar และส่วนท้าย
+> **ENRICHMENT · 25 นาที · ไม่อยู่ในเกณฑ์ผ่าน core** — เรียนบทนี้เมื่อทำ Responsive checkpoint เสร็จแล้ว โปรเจกต์หลักใช้ Flexbox ต่อได้โดยไม่ต้องเปลี่ยนเป็น Grid
+
+## เป้าหมายการเรียนรู้
+
+- เลือกได้ว่างานใดเหมาะกับ Grid หรืองานใดเหมาะกับ Flexbox
+- สร้างคอลัมน์แบบ responsive ด้วย `repeat()`, `minmax()` และ `auto-fit`
+- ใช้ Grid กับรายการเมนูเดิมโดยไม่เปลี่ยน semantic HTML
+
+## Flexbox หรือ Grid?
+
+| คำถาม | เลือก Flexbox | เลือก Grid |
+|---|---|---|
+| สนใจการเรียงหลัก ๆ กี่แกน | หนึ่งแกน: แถว **หรือ** คอลัมน์ | สองแกน: แถว **และ** คอลัมน์ |
+| ต้องการให้ items กำหนดขนาดตามเนื้อหา | มักเหมาะ | ทำได้ แต่ไม่ใช่เหตุผลหลัก |
+| ต้องการให้ขอบการ์ดแต่ละแถวตรงแนวคอลัมน์ | ไม่ใช่จุดเด่น | เหมาะ |
+| ตัวอย่างร้าน | nav, กลุ่มปุ่ม | ตารางเมนู/แกลเลอรี |
+
+ทั้งสองไม่ได้เป็นคู่แข่งและใช้ซ้อนกันได้ เช่น Grid จัดการ์ดทั้งชุด ส่วน Flexbox จัดราคาและปุ่มภายในแต่ละการ์ด ข้อกำหนด Grid นิยามระบบ layout สองมิติสำหรับ rows และ columns ([W3C CSS Grid Layout Level 2](https://www.w3.org/TR/css-grid-2/))
+
+## สถานะเริ่มต้น
+
+`.product-list` จากบท Flexbox มี cards อย่างน้อย 3 ใบและทำงาน responsive แล้ว ให้เก็บโค้ดเดิมไว้ใน Git ก่อนทดลอง เพื่อเปรียบเทียบหรือย้อนกลับได้
+
+## ลงมือทำ: เปลี่ยนเฉพาะ container
+
+แทน rule `.product-list` เดิมด้วย:
+
+```css
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+}
+```
+
+และลบ `flex: 1 1 15rem` จาก `.product-card` เพราะไม่มีผลในฐานะ grid item แบบเดียวกับตอนเป็น flex item
+
+อ่านจากด้านในออกด้านนอก:
+
+- `min(100%, 15rem)` ไม่ให้ minimum track กว้างกว่า container แคบมาก
+- `minmax(..., 1fr)` ให้แต่ละคอลัมน์มีขั้นต่ำและแบ่งพื้นที่ที่เหลือ
+- `auto-fit` สร้างจำนวน tracks เท่าที่พื้นที่รองรับและยุบ tracks ว่าง
+- `repeat()` ลดการเขียนค่าซ้ำ
 
 <script setup>
-const basic = {
-  html: `<div class="grid-container">
-  <div class="item">1</div>
-  <div class="item">2</div>
-  <div class="item">3</div>
-  <div class="item">4</div>
-</div>`,
-  css: `.grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.item {
-  background: #d4a373;
-  color: white;
-  padding: 24px;
-  text-align: center;
-  border-radius: 8px;
-}`
-}
-
-const rows = {
-  html: `<div class="grid-container">
-  <div class="item tall">1</div>
-  <div class="item">2</div>
-  <div class="item">3</div>
-  <div class="item">4</div>
-</div>`,
-  css: `.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 100px 100px;
-  gap: 16px;
-}
-
-.item {
-  background: #8b4513;
-  color: white;
-  padding: 16px;
-  text-align: center;
-  border-radius: 8px;
-}
-
-.tall {
-  grid-row: span 2;
-}`
-}
-
-const areas = {
-  html: `<div class="layout">
-  <header>ส่วนหัว</header>
-  <aside>Sidebar</aside>
-  <main>เนื้อหาหลัก</main>
-  <footer>ส่วนท้าย</footer>
-</div>`,
-  css: `.layout {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "sidebar main"
-    "footer footer";
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: auto 1fr auto;
-  gap: 16px;
-  min-height: 200px;
-}
-
-.layout > * {
-  padding: 16px;
-  color: white;
-  border-radius: 8px;
-}
-
-header { grid-area: header; background: #8b4513; }
-aside { grid-area: sidebar; background: #cd853f; }
-main { grid-area: main; background: #d4a373; }
-footer { grid-area: footer; background: #2f241f; }`
-}
-
-const autoFit = {
-  html: `<div class="responsive-grid">
-  <div class="card">สินค้า A</div>
-  <div class="card">สินค้า B</div>
-  <div class="card">สินค้า C</div>
-  <div class="card">สินค้า D</div>
-</div>`,
-  css: `.responsive-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 16px;
-}
-
-.card {
-  background: #fffaf2;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 24px;
-  text-align: center;
-}`
+const example = {
+  html: `<section class="product-list"><article class="product-card"><h2>อเมริกาโน่น้ำผึ้ง</h2><p>65 บาท</p></article><article class="product-card"><h2>ลาเต้นมสด</h2><p>70 บาท</p></article><article class="product-card"><h2>ชาดอกกาแฟ</h2><p>55 บาท</p></article><article class="product-card"><h2>กาแฟส้ม</h2><p>75 บาท</p></article></section>`,
+  css: `*{box-sizing:border-box}body{margin:0;padding:1rem;background:#fffaf2;color:#2f241f;font-family:system-ui,sans-serif}.product-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1rem}.product-card{padding:1.25rem;border:1px solid #d8c3ad;border-radius:.75rem;background:#fff}`
 }
 </script>
 
-## Grid พื้นฐาน
+<LivePreview v-bind="example" height="340px" />
 
-<LivePreview v-bind="basic" height="160px" />
+## แบบฝึกหัดเสริม: เมนูเด่นกินสองคอลัมน์
 
-- `display: grid` เปิดใช้งาน Grid
-- `grid-template-columns` กำหนดจำนวนและขนาดคอลัมน์
-- `gap` กำหนดช่องว่างระหว่างช่อง
-- `1fr` คือ “เศษส่วนที่เหลือ” ให้คอลัมน์ขยายตามพื้นที่
+เพิ่ม class ให้การ์ดใบแรก:
 
-## กำหนดแถวและคอลัมน์
+```html
+<article class="product-card product-card--featured">
+  <!-- เนื้อหาเดิม -->
+</article>
+```
 
-<LivePreview v-bind="rows" height="240px" />
+แล้วเพิ่ม CSS เฉพาะเมื่อมีอย่างน้อยสองคอลัมน์:
 
-- `grid-template-rows` กำหนดความสูงแถว
-- `grid-column: span 2` ทำให้ช่องกินพื้นที่ 2 คอลัมน์
-- `grid-row: span 2` ทำให้ช่องกินพื้นที่ 2 แถว
+```css
+@media (min-width: 40rem) {
+  .product-card--featured {
+    grid-column: span 2;
+  }
+}
+```
 
-## จัดวาง Layout ด้วย grid-area
+นี่แสดงจุดเด่นของ Grid: item หนึ่งกินหลาย tracks ได้ ระวังอย่าสั่ง `span 2` บนจอที่มีพื้นที่เพียงคอลัมน์เดียวโดยไม่มีเงื่อนไข
 
-<LivePreview v-bind="areas" height="280px" />
+## จุดที่พลาดบ่อย
 
-## Responsive Grid ด้วย auto-fit
+- ใส่ `display: grid` ที่การ์ดแทน `.product-list`
+- ใช้ `repeat(3, 1fr)` แล้วบังคับสามคอลัมน์แม้จอแคบ
+- คง flex-only properties ไว้แล้วคาดว่าจะควบคุม grid item เหมือนเดิม
+- ใช้ Grid เปลี่ยน visual order จนไม่ตรงกับ DOM และลำดับ keyboard
+- เริ่มจาก `grid-template-areas` ซับซ้อนทั้งหน้า ทั้งที่รายการการ์ดต้องการเพียง columns กับ gap
 
-<LivePreview v-bind="autoFit" height="180px" />
+## Checkpoint บทเสริม
 
-- `repeat(auto-fit, minmax(150px, 1fr))` สร้างคอลัมน์ที่ยืดหยุ่นตามหน้าจอ
-- `minmax(150px, 1fr)` กำหนดขนาดต่ำสุดและสูงสุดของแต่ละคอลัมน์
+- [ ] ที่ 320px การ์ดเป็นหนึ่งคอลัมน์และไม่ล้น
+- [ ] เมื่อขยาย viewport จำนวนคอลัมน์เพิ่มเองโดยไม่เพิ่ม media query หลายจุด
+- [ ] การ์ดเด่นกินสองคอลัมน์เฉพาะเมื่อกว้างอย่างน้อย `40rem`
+- [ ] ลำดับอ่านและลำดับ Tab ยังตรงกับ HTML
+- [ ] อธิบายได้ว่าทำไมรายการนี้เลือก Grid แต่ nav ยังเลือก Flexbox
 
-## เลือกใช้ Flexbox หรือ Grid?
+## ทดลองเปรียบเทียบ
 
-- **Flexbox** เหมาะกับการจัดวางในแนวเดียว (แถวหรือคอลัมน์)
-- **Grid** เหมาะกับการจัดวางทั้งแถวและคอลัมน์พร้อมกัน
-- ทั้งสองใช้ร่วมกันได้ เช่น Grid จัดโครงหน้า ส่วน Flexbox จัดเนื้อหาภายใน Card
+สลับระหว่าง commit Flexbox กับ Grid แล้วตอบสั้น ๆ: สำหรับร้านของคุณ alignment แบบคอลัมน์เพิ่มคุณค่าให้เนื้อหาหรือไม่? ถ้าไม่ การเก็บ Flexbox ที่เรียบง่ายกว่าคือคำตอบที่ถูกต้องได้
 
-::: tip จำง่าย ๆ
-**Flexbox = 1 แนว** (แถว **หรือ** คอลัมน์) | **Grid = 2 แนว** (แถว **และ** คอลัมน์)
-:::
+## แหล่งอ้างอิงมาตรฐาน
 
-::: details ภาพประกอบที่แนะนำ
-Diagram เปรียบเทียบ Flexbox (1 แนว) กับ Grid (2 แนว) พร้อมตัวอย่าง Layout
-:::
+- [W3C CSS Grid Layout Module Level 2](https://www.w3.org/TR/css-grid-2/)
+- [W3C CSS Flexible Box Layout Module Level 1](https://www.w3.org/TR/css-flexbox-1/)

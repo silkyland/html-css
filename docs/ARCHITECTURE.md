@@ -1,101 +1,104 @@
 # Architecture
 
-## Overview
+> Maintained by deep-plan-ingest from [PLAN.md](PLAN.md). Last ingested: 17 July 2026.
+> Facts carry citations; if a citation no longer matches the code, re-verify before relying on it.
 
-This repository contains a single Markdown document,
-`workshop-html-css-git.md` (803 lines), which serves as the complete
-curriculum for a one-day, hands-on workshop teaching HTML, CSS, and Git
-basics to beginners. The document is written entirely in Thai.
+## System overview
 
-There is no application code, no build system, no tests, and no git
-repository. The "architecture" is the document's structure and the
-pedagogical flow of its 30 sections.
+The repository is a VitePress 1.6.4 documentation site for a Thai one-day beginner workshop (`package.json:1-16`). The learner reads a routed curriculum under `docs/`, downloads a starter HTML file and generated image assets from `docs/public/`, incrementally builds one coffee-shop page, and then records three milestones in Git. Navigation, local search, and excluded authoring files are configured centrally (`docs/.vitepress/config.ts:3-152`).
 
-## Component table
+```text
+docs/*.md ──VitePress──> static curriculum site
+   │                         │
+   ├── LivePreview ─────────> sandboxed HTML/CSS iframe
+   ├── public/starter ──────> learner's my-shop-profile/
+   └── public/images ───────> lesson illustrations and project image
 
-| Component | Status | Description | Evidence |
+learner: setup → history → HTML → accessibility → CSS → Git → capstone
+quality: scripts/check-curriculum.mjs → VitePress production build
+```
+
+## Components
+
+| Component | Responsibility | Status | Evidence |
 |---|---|---|---|
-| `workshop-html-css-git.md` | works | Single-file workshop curriculum, 30 sections | lines 1-803 |
+| `docs/.vitepress/config.ts` | Thai metadata, nav/sidebar, search, author-file exclusions | works | `docs/.vitepress/config.ts:3-152` |
+| `docs/.vitepress/components/LivePreview.vue` | Displays source and isolated rendered HTML/CSS | works | `docs/.vitepress/components/LivePreview.vue:4-78` |
+| `docs/intro/` | Setup, agenda, history, Web mental model, instructor context | works | routes at `docs/.vitepress/config.ts:12-20,71-83` |
+| `docs/html/` | Progressive semantic HTML plus accessibility validation and enrichment | works | routes at `docs/.vitepress/config.ts:23-32,84-97` |
+| `docs/css/` | One cumulative `style.css` path; Grid is enrichment | works | routes at `docs/.vitepress/config.ts:35-44,98-111` |
+| `docs/git/` | Existing-project init/add/commit/remote/push path; clone is alternate | works | routes at `docs/.vitepress/config.ts:47-56,112-125` |
+| `docs/workshop/` | Capstone rubric, troubleshooting, instructor checks, summary/resources | works | routes at `docs/.vitepress/config.ts:59-68,126-139` |
+| `docs/public/starter/` | Downloadable initial learner file | works | linked at `docs/intro/setup.md:47-69` |
+| `docs/public/images/workshop/` | Six generated WebP illustrations | works | manifest at `docs/ILLUSTRATION-BACKLOG.md:5-22` |
+| `scripts/check-curriculum.mjs` | Checks learner routes, assets, required lesson blocks, legacy-source references | works | `scripts/check-curriculum.mjs:11-184` |
+| `archive/` | Frozen monolith and inactive Bun lockfile | works as archive | `archive/README.md:1-8` |
 
-## Document structure
+## Data flow
 
-The document is organized into 30 numbered sections covering three
-main topics, plus workshop and closing sections:
+### Author/read path
 
-### Part 1: Introduction (sections 01–04)
+1. Authors edit canonical lesson Markdown under `docs/` following `docs/CONTRIBUTING.md:1-31`.
+2. `docs/.vitepress/config.ts:9-139` exposes each page in nav/sidebar; author-only Markdown is excluded at `:7`.
+3. VitePress registers `LivePreview` globally through `docs/.vitepress/theme/index.ts:1-10`.
+4. `LivePreview` combines lesson HTML/CSS into `srcdoc` (`docs/.vitepress/components/LivePreview.vue:27-52`) and renders it in a titled, sandboxed iframe (`:69-78`).
+5. VitePress renders static pages; local search is enabled at `docs/.vitepress/config.ts:140-141`.
 
-- **01:** Workshop overview — instructor, date, location (lines 1-15)
-- **02:** Instructor introduction (lines 17-30)
-- **03:** Agenda with time table (lines 32-49)
-- **04:** How websites work — Client/Server/Database flow (lines 51-76)
+### Learner/write path
 
-### Part 2: HTML (sections 05–10)
+1. Setup creates `my-shop-profile/`, `images/`, and `index.html` (`docs/intro/setup.md:26-69`).
+2. HTML lessons modify the same `index.html`; the history and Web lessons provide the mental model before syntax (`docs/intro/agenda.md:11-17`).
+3. CSS lessons add and grow the same `style.css`, ending with 320/768/1280px checks (`docs/css/responsive.md:98-130`).
+4. Git initializes that existing directory and records semantic page, styling, and responsive milestones (`docs/git/init.md:13-70`, `docs/git/commit.md:17-79`).
+5. GitHub lessons add a remote and push; capstone evaluates evidence in four pass/fix categories (`docs/workshop/project.md:45-104`).
 
-- **05:** HTML document structure — `<!doctype>`, `<head>`, `<body>` (lines 78-103)
-- **06:** Basic content tags — `<h1>`–`<h6>`, `<p>`, `<strong>`, `<br>`, `<hr>` (lines 105-128)
-- **07:** Links and images — `<a>`, `<img>`, `alt` (lines 130-155)
-- **08:** Lists and tables — `<ul>`, `<ol>`, `<table>` (lines 157-191)
-- **09:** Semantic HTML — `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>` (lines 193-225)
-- **10:** Contact form — `<form>`, `<label>`, `<input>`, `<textarea>`, `<button>` (lines 227-255)
+### Verification path
 
-### Part 3: CSS (sections 12–17)
+1. `npm run docs:check` invokes `scripts/check-curriculum.mjs` (`package.json:7-12`).
+2. The checker walks learner Markdown, verifies internal routes/assets, validates required routes and five core lesson blocks, and forbids references to the legacy root filename (`scripts/check-curriculum.mjs:11-184`).
+3. `npm run docs:build` performs the VitePress production render; `npm test` runs both checks (`package.json:9-12`).
 
-- **12:** Linking CSS to HTML — `<link rel="stylesheet">` (lines 271-298)
-- **13:** CSS selectors — tag, class, ID (lines 300-331)
-- **14:** Box model — content, padding, border, margin, `box-sizing` (lines 333-362)
-- **15:** Colors and typography (lines 364-393)
-- **16:** Flexbox — `display: flex`, `gap`, `justify-content`, `align-items`, `flex-wrap` (lines 395-428)
-- **17:** Responsive design — `@media`, `max-width`, `flex-direction` (lines 430-462)
+## Framework mechanisms in use
 
-### Part 4: Git & GitHub (sections 19–26)
+| Mechanism | How this project uses it | Source |
+|---|---|---|
+| VitePress `themeConfig.nav` / `sidebar` | Routes five curriculum groups | local VitePress 1.6.4 types: `node_modules/vitepress/types/default-theme.d.ts:45-53,168-200` |
+| VitePress `srcExclude` | Keeps plan/architecture/authoring docs out of learner pages | local VitePress 1.6.4 types: `node_modules/vitepress/dist/node/index.d.ts:2218-2225` |
+| Vue global component | Registers `LivePreview` for Markdown lessons | `docs/.vitepress/theme/index.ts:1-10` |
+| iframe `srcdoc` + `sandbox` | Renders authored HTML/CSS without script or same-origin privilege | [WHATWG HTML §4.8.5](https://html.spec.whatwg.org/multipage/iframe-embed-object.html#attr-iframe-sandbox) |
+| HTML Living Standard | Grounds history, semantics, document structure | [WHATWG HTML Introduction](https://html.spec.whatwg.org/multipage/introduction.html) |
+| CSS modules/snapshot | Grounds cascade, layout, responsive lessons | [W3C CSS Snapshot 2026](https://www.w3.org/TR/css/) |
 
-- **19:** Version control concept (lines 478-499)
-- **20:** Why use Git — benefits and vocabulary (lines 501-517)
-- **21:** `git init` (lines 519-543)
-- **22:** `git add` and staging area (lines 545-575)
-- **23:** `git commit` and `git log` (lines 578-607)
-- **24:** Creating a GitHub repository and adding a remote (lines 609-630)
-- **25:** `git push` (lines 632-659)
-- **26:** `git clone` and init vs clone (lines 661-685)
+## Decision records
 
-### Part 5: Workshop & closing (sections 27–30)
+### 1. Keep VitePress and repair curriculum flow (17 July 2026)
+- **Decision:** retain the working docs framework and rewrite the pedagogy.
+- **Why:** navigation, search, and production build were already functional.
+- **Rejected:** replacing the delivery framework would not address the learner-path defects.
 
-- **27:** Workshop project — build a shop profile page with requirements and grading criteria (lines 687-724)
-- **28:** Summary of what was learned (lines 726-756)
-- **29:** Learning resources — MDN, web.dev, W3Schools, Flexbox Froggy, Git docs (lines 758-782)
-- **30:** Thank you and Q&A (lines 784-803)
+### 2. One cumulative learner project (17 July 2026)
+- **Decision:** every core lesson modifies the same “กาแฟบ้านดอย” project.
+- **Why:** removes snippet assembly and keeps Git attached to the actual work.
+- **Rejected:** unrelated business examples create unnecessary context switching.
 
-### Break sections
+### 3. Core versus enrichment (17 July 2026)
+- **Decision:** keep Tables, Forms, Grid, and Clone as clearly labeled enrichment.
+- **Why:** the core agenda must fit 09:00–16:00 (`docs/intro/agenda.md:5-30`).
+- **Rejected:** deleting these pages would lose useful reference material.
 
-- **11:** Morning break (lines 257-269)
-- **18:** Lunch break (lines 464-476)
+### 4. Canonical `docs/` source (17 July 2026)
+- **Decision:** archive the monolith and author only VitePress Markdown.
+- **Why:** `docs/` is what builds and it supports previews, routes, and richer content.
+- **Rejected:** bidirectional generation would add a second representation to maintain.
 
-## Exemplar trace: How a typical section is structured
+### 5. Generated raster scenes plus code-native exact diagrams (17 July 2026)
+- **Decision:** use generated WebP for atmosphere/visual comparison and reserve SVG/HTML for label-critical diagrams.
+- **Why:** generated scenes enrich the manual while code-native diagrams preserve exact terminology (`docs/ILLUSTRATION-BACKLOG.md:5-29`).
+- **Rejected:** text-heavy generated diagrams risk inaccurate labels.
 
-Section 13 (CSS Selectors) is a representative example:
+## Known constraints and sharp edges
 
-1. **Section heading:** `# 13. CSS Selector: เลือกสิ่งที่จะตกแต่ง` (line 300)
-2. **Brief explanation:** One-sentence intro of the concept (line 302)
-3. **HTML code block:** Example markup with `id` and `class` attributes (lines 304-308)
-4. **CSS code block:** Matching selectors — tag, class, ID (lines 310-325)
-5. **Bullet list:** Key takeaways summarizing selector types (lines 327-329)
-6. **Horizontal rule:** `---` closing the section (line 331)
-
-Some sections additionally include:
-- A `> ` blockquote tip (e.g., line 126 in section 06)
-- A `**ภาพประกอบที่แนะนำ:**` recommended illustration (e.g., line 101 in section 05)
-
-## Inconsistencies
-
-None found. The document is highly consistent across all 30 sections.
-
-## Sharp edges
-
-1. **Hardcoded workshop metadata:** Instructor name, date (18 กรกฎาคม 2569),
-   and location are hardcoded in section 01 (lines 5-9). Reusing this
-   curriculum for a different date or instructor requires editing these lines.
-2. **No git repository:** The project itself is not under version control.
-   There is no `.git/` directory and no remote configured.
-3. **Code examples are illustrative only:** The HTML/CSS snippets use
-   placeholder paths (e.g., `images/eco-bag.jpg`) and are not part of a
-   runnable project. They teach concepts, not produce a working site.
+- Lessons rely on exact core heading names; changing them requires updating `scripts/check-curriculum.mjs:119-161`.
+- `LivePreview` intentionally disallows scripts and same-origin access; do not add JavaScript demos without a fresh threat/design review (`docs/.vitepress/components/LivePreview.vue:69-78`).
+- npm currently reports three transitive development-tool advisories through VitePress/Vite/esbuild and no automatic fix; do not expose the dev server to untrusted networks (`package.json:14-16`; `npm audit`).
+- GitHub UI/authentication can change; the course supplies a recovery page and local Git evidence fallback (`docs/workshop/troubleshooting.md:79-120`).
