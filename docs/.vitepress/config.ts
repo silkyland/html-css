@@ -1,0 +1,142 @@
+import { defineConfig } from 'vitepress'
+
+export default defineConfig({
+  lang: 'th-TH',
+  title: 'เวิร์กชอป HTML + CSS + Git',
+  description: 'คู่มืออบรมสร้างเว็บไซต์ด้วย HTML, CSS และ Git เบื้องต้น',
+  srcExclude: ['PLAN.md', 'ARCHITECTURE.md'],
+  themeConfig: {
+    nav: [
+      { text: 'หน้าแรก', link: '/' },
+      {
+        text: 'แนะนำ',
+        items: [
+          { text: 'ภาพรวม', link: '/intro/overview' },
+          { text: 'วิทยากร', link: '/intro/instructor' },
+          { text: 'กำหนดการ', link: '/intro/agenda' },
+          { text: 'เว็บทำงานอย่างไร', link: '/intro/how-web-works' },
+        ],
+      },
+      {
+        text: 'HTML',
+        items: [
+          { text: 'โครงสร้างเอกสาร', link: '/html/structure' },
+          { text: 'Tag พื้นฐาน', link: '/html/tags' },
+          { text: 'ลิงก์และรูปภาพ', link: '/html/links-images' },
+          { text: 'รายการและตาราง', link: '/html/lists-tables' },
+          { text: 'Semantic HTML', link: '/html/semantic' },
+          { text: 'ฟอร์ม', link: '/html/forms' },
+        ],
+      },
+      {
+        text: 'CSS',
+        items: [
+          { text: 'รู้จัก CSS', link: '/css/intro' },
+          { text: 'Selector', link: '/css/selectors' },
+          { text: 'Box Model', link: '/css/box-model' },
+          { text: 'สีและตัวอักษร', link: '/css/colors-fonts' },
+          { text: 'Flexbox', link: '/css/flexbox' },
+          { text: 'CSS Grid', link: '/css/grid' },
+          { text: 'Responsive', link: '/css/responsive' },
+        ],
+      },
+      {
+        text: 'Git',
+        items: [
+          { text: 'Version Control', link: '/git/version-control' },
+          { text: 'git init', link: '/git/init' },
+          { text: 'git add', link: '/git/add' },
+          { text: 'git commit', link: '/git/commit' },
+          { text: 'GitHub', link: '/git/github' },
+          { text: 'git push', link: '/git/push' },
+          { text: 'git clone', link: '/git/clone' },
+        ],
+      },
+      {
+        text: 'เวิร์กชอป',
+        items: [
+          { text: 'โจทย์', link: '/workshop/project' },
+          { text: 'สรุป', link: '/workshop/summary' },
+          { text: 'แหล่งเรียนรู้', link: '/workshop/resources' },
+          { text: 'ถาม–ตอบ', link: '/workshop/qna' },
+        ],
+      },
+    ],
+    sidebar: {
+      '/intro/': [
+        {
+          text: 'แนะนำ',
+          items: [
+            { text: 'ภาพรวม', link: '/intro/overview' },
+            { text: 'วิทยากร', link: '/intro/instructor' },
+            { text: 'กำหนดการ', link: '/intro/agenda' },
+            { text: 'เว็บทำงานอย่างไร', link: '/intro/how-web-works' },
+          ],
+        },
+      ],
+      '/html/': [
+        {
+          text: 'HTML',
+          items: [
+            { text: 'โครงสร้างเอกสาร', link: '/html/structure' },
+            { text: 'Tag พื้นฐาน', link: '/html/tags' },
+            { text: 'ลิงก์และรูปภาพ', link: '/html/links-images' },
+            { text: 'รายการและตาราง', link: '/html/lists-tables' },
+            { text: 'Semantic HTML', link: '/html/semantic' },
+            { text: 'ฟอร์ม', link: '/html/forms' },
+          ],
+        },
+      ],
+      '/css/': [
+        {
+          text: 'CSS',
+          items: [
+            { text: 'รู้จัก CSS', link: '/css/intro' },
+            { text: 'Selector', link: '/css/selectors' },
+            { text: 'Box Model', link: '/css/box-model' },
+            { text: 'สีและตัวอักษร', link: '/css/colors-fonts' },
+            { text: 'Flexbox', link: '/css/flexbox' },
+            { text: 'CSS Grid', link: '/css/grid' },
+            { text: 'Responsive', link: '/css/responsive' },
+          ],
+        },
+      ],
+      '/git/': [
+        {
+          text: 'Git',
+          items: [
+            { text: 'Version Control', link: '/git/version-control' },
+            { text: 'git init', link: '/git/init' },
+            { text: 'git add', link: '/git/add' },
+            { text: 'git commit', link: '/git/commit' },
+            { text: 'GitHub', link: '/git/github' },
+            { text: 'git push', link: '/git/push' },
+            { text: 'git clone', link: '/git/clone' },
+          ],
+        },
+      ],
+      '/workshop/': [
+        {
+          text: 'เวิร์กชอป',
+          items: [
+            { text: 'โจทย์', link: '/workshop/project' },
+            { text: 'สรุป', link: '/workshop/summary' },
+            { text: 'แหล่งเรียนรู้', link: '/workshop/resources' },
+            { text: 'ถาม–ตอบ', link: '/workshop/qna' },
+          ],
+        },
+      ],
+    },
+    outline: { label: 'บนหน้านี้' },
+    search: { provider: 'local' },
+  },
+  markdown: {
+    container: {
+      tipLabel: 'คำแนะนำ',
+      warningLabel: 'คำเตือน',
+      dangerLabel: 'ระวัง',
+      infoLabel: 'ข้อมูล',
+      detailsLabel: 'รายละเอียด',
+    },
+  },
+})
