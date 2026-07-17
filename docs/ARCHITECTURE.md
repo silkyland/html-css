@@ -30,7 +30,7 @@ quality: scripts/check-curriculum.mjs → VitePress production build
 | `docs/git/` | Existing-project init/add/commit/remote/push path; clone is alternate | works | routes at `docs/.vitepress/config.ts:47-56,112-125` |
 | `docs/workshop/` | Capstone rubric, troubleshooting, instructor checks, summary/resources | works | routes at `docs/.vitepress/config.ts:59-68,126-139` |
 | `docs/public/starter/` | Downloadable initial learner file | works | linked at `docs/intro/setup.md:47-69` |
-| `docs/public/images/workshop/` | Six generated WebP illustrations | works | manifest at `docs/ILLUSTRATION-BACKLOG.md:5-22` |
+| `docs/public/images/workshop/` | Generated WebP illustrations for lessons | works | manifest at `docs/ILLUSTRATION-BACKLOG.md` |
 | `scripts/check-curriculum.mjs` | Checks learner routes, assets, required lesson blocks, legacy-source references | works | `scripts/check-curriculum.mjs:11-184` |
 | `archive/` | Frozen monolith and inactive Bun lockfile | works as archive | `archive/README.md:1-8` |
 

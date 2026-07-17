@@ -122,7 +122,7 @@ function checkConfigRoutes() {
     }
   }
 
-  const curriculumDirectories = new Set(['intro', 'html', 'css', 'git', 'workshop'])
+  const curriculumDirectories = new Set(['intro', 'html', 'css', 'git', 'workshop', 'tools'])
   const learnerRoutes = learnerMarkdownFiles()
     .map((path) => relative(docsRoot, path).replace(/\.md$/, '').split('\\').join('/'))
     .filter((route) => curriculumDirectories.has(route.split('/')[0]))

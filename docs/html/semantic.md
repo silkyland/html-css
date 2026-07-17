@@ -92,6 +92,21 @@ title: Semantic HTML
 </body>
 ```
 
+<LivePreview v-bind="semanticExample" height="480px" title="index.html — โครง semantic ทั้งหน้า (ตัดเนื้อหาบางส่วนเพื่อความสั้น)" />
+
+## `<details>` และ `<summary>` — เนื้อหาที่เปิด-ปิดได้
+
+ถ้ามีข้อมูลเพิ่มเติมที่ไม่จำเป็นต้องเห็นทันที เช่นคำถามที่พบบ่อย ใช้ `<details>` ครอบและ `<summary>` เป็นหัวข้อที่คลิกได้:
+
+```html
+<details>
+  <summary>วิธีเก็บรักษาเมล็ดกาแฟ</summary>
+  <p>เก็บในภาชนะปิดสนิท ห่างจากแสงและความชื้น ควรใช้ภายใน 30 วันหลังเปิดบรรจุภัณฑ์</p>
+</details>
+```
+
+Browser แสดงสามเหลี่ยมเล็ก ๆ ที่คลิกได้โดยไม่ต้องเขียน JavaScript เลย และเครื่องมืออ่านหน้าจอรู้ว่าเป็นส่วนที่ขยายได้
+
 <script setup>
 const semanticExample = {
   html: `<header>
@@ -125,9 +140,38 @@ const semanticExample = {
   <p><a href="tel:+66812345678">โทร 081-234-5678</a></p>
 </footer>`
 }
+
+const detailsExample = {
+  html: `<details>
+  <summary>วิธีเก็บรักษาเมล็ดกาแฟ</summary>
+  <p>เก็บในภาชนะปิดสนิท ห่างจากแสงและความชื้น ควรใช้ภายใน 30 วันหลังเปิดบรรจุภัณฑ์</p>
+</details>
+<details>
+  <summary>ระดับการคั่วที่มี</summary>
+  <ul>
+    <li>คั่วอ่อน — รสเปรี้ยว หอมผลไม้</li>
+    <li>คั่วกลาง — สมดุล หอมคาราเมล</li>
+    <li>คั่วเข้ม — ขมปลาย หอมช็อกโกแลต</li>
+  </ul>
+</details>`
+}
 </script>
 
-<LivePreview v-bind="semanticExample" height="480px" title="index.html — โครง semantic ทั้งหน้า (ตัดเนื้อหาบางส่วนเพื่อความสั้น)" />
+<LivePreview v-bind="detailsExample" height="200px" title="details + summary — เนื้อหาที่เปิด-ปิดได้" />
+
+## `class` กับ `id` — สองอย่างที่มักสับสน
+
+ในบทนี้เห็นทั้ง `class` และ `id` ใช้กับ element ต่าง ๆ ความต่าง:
+
+| | `class` | `id` |
+|---|---|---|
+| ซ้ำได้ไหม | ใช้ซ้ำกับหลาย element ได้ | ต้องไม่ซ้ำกันในหน้าเดียว |
+| ใช้ทำอะไร | จัดกลุ่มสำหรับ CSS | ระบุปลายทางลิงก์ (`href="#...`) และ label ที่เชื่อมกับ input |
+| ตัวอย่าง | `class="product-card"` ใช้กับการ์ดทุกใบ | `id="menu"` ใช้ครั้งเดียวในหน้า |
+
+::: tip กฎง่าย ๆ
+ถ้าต้องการให้ CSS จัดการกับหลาย element เหมือนกัน ใช้ `class` ถ้าต้องการให้ลิงก์เลื่อนไปยังจุดเดียว หรือ label เชื่อมกับ input ตัวเดียว ใช้ `id`
+:::
 
 ## ผลที่ควรเห็น
 

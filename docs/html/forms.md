@@ -42,6 +42,70 @@ title: ฟอร์มติดต่อ
 </section>
 ```
 
+## สิ่งที่แต่ละส่วนทำ
+
+| ส่วน | หน้าที่ |
+|---|---|
+| `label for="customer-email"` | เชื่อมข้อความอธิบายกับ `id="customer-email"` |
+| `name` | ชื่อ key ที่ใช้เมื่อ Browser เตรียมข้อมูลส่ง |
+| `type="email"` | บอกชนิดข้อมูลและเปิด validation รูปแบบพื้นฐาน |
+| `autocomplete` | ช่วย Browser เสนอข้อมูลที่ผู้ใช้เคยอนุญาตให้จำ |
+| `required` | ห้ามส่งเมื่อช่องยังว่าง |
+| `method="get"` | ใช้เพื่อสังเกตข้อมูลใน URL เท่านั้น ไม่เหมาะกับข้อมูลลับ |
+
+::: warning อย่าใส่ข้อมูลจริงหรือข้อมูลลับ
+ตัวอย่างนี้ไม่มี Server รับข้อมูล ปุ่ม submit อาจ reload หน้าและแสดงค่าที่กรอกใน URL เพราะใช้ `get` ใช้ข้อมูลสมมติเท่านั้น และอย่าใช้ GET ส่งรหัสผ่านหรือข้อมูลอ่อนไหว
+:::
+
+## ฟอร์มที่ซับขึ้น: select, radio, checkbox และ fieldset
+
+ฟอร์มจริงมักมีตัวเลือกมากกว่า text กับ email ตัวอย่างต่อไปนี้เพิ่ม dropdown, ตัวเลือกเดียว และหลายตัวเลือก:
+
+```html
+<form action="" method="get">
+  <fieldset>
+    <legend>ประเภทการติดต่อ</legend>
+    <label>
+      <input type="radio" name="topic" value="wholesale" checked>
+      สั่งซื้อส่งร้าน
+    </label>
+    <label>
+      <input type="radio" name="topic" value="workshop">
+      สอบถามเวิร์กชอป
+    </label>
+  </fieldset>
+
+  <p>
+    <label for="roast-level">ระดับการคั่ว</label>
+    <select id="roast-level" name="roast">
+      <option value="light">คั่วอ่อน</option>
+      <option value="medium" selected>คั่วกลาง</option>
+      <option value="dark">คั่วเข้ม</option>
+    </select>
+  </p>
+
+  <p>
+    <label>
+      <input type="checkbox" name="newsletter" checked>
+      รับข่าวสารร้าน
+    </label>
+  </p>
+
+  <button type="submit">ตรวจข้อมูล</button>
+</form>
+```
+
+| Control | ใช้เมื่อ | สังเกต |
+|---|---|---|
+| `<select>` | เลือกหนึ่งจากตัวเลือกจำกัด | คล้าย dropdown แต่ไม่พิมพ์เอง |
+| `type="radio"` | เลือกหนึ่งจากหลายตัวเลือก | `name` ต้องเหมือนกันทุกตัวในกลุ่ม |
+| `type="checkbox"` | เลือกได้ศูนย์หรือหลายตัว | แต่ละตัวมี `name` และ `value` ของตัวเอง |
+| `<fieldset>` + `<legend>` | จัดกลุ่มตัวเลือกที่เกี่ยวข้องกัน | `legend` เป็นหัวข้อกลุ่มที่ screen reader อ่าน |
+
+::: tip `label` ครอบ input เลยได้
+เมื่อ `<label>` ครอบ `<input>` อยู่ข้างใน ไม่ต้องใช้ `for`/`id` เชื่อม คลิกข้อความใน label จะ focus ไปที่ input โดยอัตโนมัติ
+:::
+
 <script setup>
 const formsExample = {
   html: `<section id="contact-form">
@@ -63,24 +127,43 @@ const formsExample = {
   </form>
 </section>`
 }
+
+const advancedFormExample = {
+  html: `<form action="" method="get">
+  <fieldset>
+    <legend>ประเภทการติดต่อ</legend>
+    <label>
+      <input type="radio" name="topic" value="wholesale" checked>
+      สั่งซื้อส่งร้าน
+    </label>
+    <label>
+      <input type="radio" name="topic" value="workshop">
+      สอบถามเวิร์กชอป
+    </label>
+  </fieldset>
+  <p>
+    <label for="roast-level">ระดับการคั่ว</label>
+    <select id="roast-level" name="roast">
+      <option value="light">คั่วอ่อน</option>
+      <option value="medium" selected>คั่วกลาง</option>
+      <option value="dark">คั่วเข้ม</option>
+    </select>
+  </p>
+  <p>
+    <label>
+      <input type="checkbox" name="newsletter" checked>
+      รับข่าวสารร้าน
+    </label>
+  </p>
+  <button type="submit">ตรวจข้อมูล</button>
+</form>`,
+  css: `fieldset{border:1px solid #d8c3ad;padding:1rem;margin:0 0 1rem}legend{font-weight:600;padding:0 .5rem}label{display:inline-block;margin-right:1rem}`
+}
 </script>
 
 <LivePreview v-bind="formsExample" height="360px" title="ฟอร์มติดต่อ — ลองกดปุ่มโดยไม่กรอกอะไรดูข้อความ required" />
 
-## สิ่งที่แต่ละส่วนทำ
-
-| ส่วน | หน้าที่ |
-|---|---|
-| `label for="customer-email"` | เชื่อมข้อความอธิบายกับ `id="customer-email"` |
-| `name` | ชื่อ key ที่ใช้เมื่อ Browser เตรียมข้อมูลส่ง |
-| `type="email"` | บอกชนิดข้อมูลและเปิด validation รูปแบบพื้นฐาน |
-| `autocomplete` | ช่วย Browser เสนอข้อมูลที่ผู้ใช้เคยอนุญาตให้จำ |
-| `required` | ห้ามส่งเมื่อช่องยังว่าง |
-| `method="get"` | ใช้เพื่อสังเกตข้อมูลใน URL เท่านั้น ไม่เหมาะกับข้อมูลลับ |
-
-::: warning อย่าใส่ข้อมูลจริงหรือข้อมูลลับ
-ตัวอย่างนี้ไม่มี Server รับข้อมูล ปุ่ม submit อาจ reload หน้าและแสดงค่าที่กรอกใน URL เพราะใช้ `get` ใช้ข้อมูลสมมติเท่านั้น และอย่าใช้ GET ส่งรหัสผ่านหรือข้อมูลอ่อนไหว
-:::
+<LivePreview v-bind="advancedFormExample" height="320px" title="ฟอร์มขั้นสูง — select, radio, checkbox, fieldset" />
 
 ## ทดลองพฤติกรรม Browser
 

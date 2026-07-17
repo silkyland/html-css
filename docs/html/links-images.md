@@ -90,6 +90,20 @@ const linksExample = {
 <h2 id="contact">ติดต่อเรา</h2>
 <p><a href="tel:+66812345678">โทร 081-234-5678</a></p>`
 }
+
+const figureExample = {
+  html: `<figure>
+  <img
+    src="/images/workshop/community-coffee-shop.webp"
+    alt="หน้าร้านกาแฟบ้านดอย มีเคาน์เตอร์ไม้และเมล็ดกาแฟจากชุมชน"
+    width="960"
+    height="640"
+    loading="lazy"
+  >
+  <figcaption>หน้าร้านเปิดให้บริการตั้งแต่มกราคม 2567</figcaption>
+</figure>`,
+  css: `figure{margin:0}figcaption{font-size:.875rem;color:#666;margin-top:.5rem;text-align:center}`
+}
 </script>
 
 <LivePreview v-bind="linksExample" height="420px" title="index.html — ส่วน body (ตัวอย่างใช้ path เต็มของภาพจากบทเรียน)" />
@@ -109,6 +123,50 @@ const linksExample = {
 - คลิกเมนูแล้ว Browser เลื่อนไปยังหัวข้อที่ตรงกัน
 - ภาพหน้าร้านแสดงโดยไม่เกิดไอคอนภาพแตก
 - คลิกลิงก์โทรศัพท์แล้วอุปกรณ์ที่รองรับเสนอเปิดแอปโทร
+
+## ลิงก์ประเภทอื่นที่ใช้บ่อย
+
+นอกจากลิงก์ในหน้า (`href="#...`) และโทร (`href="tel:..."`) ยังมี:
+
+```html
+<a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+  เว็บไซต์เครือข่ายเกษตรกร
+</a>
+<a href="mailto:hello@bandoi.coffee?subject=สอบถามเมล็ดกาแฟ">
+  ส่งอีเมล
+</a>
+```
+
+| ประเภท | ตัวอย่าง | พฤติกรรม |
+|---|---|---|
+| เว็บอื่น | `href="https://..."` | เปิดในแท็บเดียวกัน หรือแท็บใหม่ถ้ามี `target="_blank"` |
+| อีเมล | `href="mailto:..."` | เปิดแอปอีเมลแล้วเติมผู้รับ/หัวเรื่องให้ |
+| ดาวน์โหลด | `href="..." download` | ดาวน์โหลดไฟล์แทนเปิดดู |
+
+::: warning ใช้ `target="_blank"` ต้องมี `rel="noopener"`
+เปิดแท็บใหม่โดยไม่มี `rel="noopener"` ทำให้หน้าใหม่เข้าถึง `window.opener` ของหน้าเดิมได้ เป็นความเสี่ยงด้านความปลอดภัย `rel="noopener noreferrer"` ป้องกันทั้งการเข้าถึงและการส่ง referrer ไปยังเว็บปลายทาง
+:::
+
+## รูปภาพกับ `<figure>` และคำบรรยาย
+
+ถ้าภาพมีคำบรรยายที่ให้บริบท เช่น "ภาพถ่ายโดย…" ใช้ `<figure>` ครอบภาพและ `<figcaption>` เขียนคำบรรยาย:
+
+```html
+<figure>
+  <img
+    src="images/community-coffee-shop.webp"
+    alt="หน้าร้านกาแฟบ้านดอย มีเคาน์เตอร์ไม้และเมล็ดกาแฟจากชุมชน"
+    width="960"
+    height="640"
+    loading="lazy"
+  >
+  <figcaption>หน้าร้านเปิดให้บริการตั้งแต่มกราคม 2567</figcaption>
+</figure>
+```
+
+`loading="lazy"` บอก Browser ให้โหลดภาพเฉพาะเมื่อผู้ใช้เลื่อนถึง ลดการโหลดที่ไม่จำเป็นในหน้ายาว ส่วน `<figcaption>` เป็นคำบรรยายที่เครื่องมืออ่านหน้าจอเชื่อมกับภาพได้โดยตรง
+
+<LivePreview v-bind="figureExample" height="420px" title="figure + figcaption — ภาพพร้อมคำบรรยาย" />
 
 ## จุดที่พลาดบ่อย
 

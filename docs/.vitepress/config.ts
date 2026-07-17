@@ -66,6 +66,12 @@ export default defineConfig({
           { text: 'ถาม–ตอบ', link: '/workshop/qna' },
         ],
       },
+      {
+        text: 'Tools',
+        items: [
+          { text: 'Color Palette', link: '/tools/color-palette' },
+        ],
+      },
     ],
     sidebar: {
       '/intro/': [
@@ -133,6 +139,14 @@ export default defineConfig({
             { text: 'สรุป', link: '/workshop/summary' },
             { text: 'แหล่งเรียนรู้', link: '/workshop/resources' },
             { text: 'ถาม–ตอบ', link: '/workshop/qna' },
+          ],
+        },
+      ],
+      '/tools/': [
+        {
+          text: 'Tools',
+          items: [
+            { text: 'Color Palette', link: '/tools/color-palette' },
           ],
         },
       ],
